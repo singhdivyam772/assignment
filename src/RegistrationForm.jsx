@@ -21,6 +21,8 @@ const RegistrationForm = () => {
     password: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -230,14 +232,23 @@ const RegistrationForm = () => {
           <label htmlFor="password" className="block text-sm font-semibold">
             Password
           </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              name="password"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 text-blue-500"
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
           {errors.password && (
             <p className="text-red-500 text-sm">{errors.password}</p>
           )}
